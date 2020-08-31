@@ -31,7 +31,6 @@ export default class AppRoot extends Vue {
             modal.modalClose();
             await new Promise(resolve => window.setTimeout(resolve, 5000));
             const predition = await video.complete();
-            alert(predition);
         } else {
             await video.pause();
             modal.modalClose()
