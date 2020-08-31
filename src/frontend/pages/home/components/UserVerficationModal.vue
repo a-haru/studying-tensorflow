@@ -34,11 +34,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { compare, comparePicture } from '../../shared/comparePictures';
+import { makeTmImageApp, imageModel } from '../../shared/comparePictures';
 
 @Component
 export default class UserVerificationModal extends Vue {
-    @Prop() webcam: comparePicture;
+    @Prop() imageModel: imageModel;
 
     dialog: boolean = false;
 
