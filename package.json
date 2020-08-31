@@ -1,0 +1,31 @@
+{
+  "name": "studying_tensorflow",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@teachablemachine/image": "0.8.4",
+    "@tensorflow/tfjs": "2.3.0",
+    "@tensorflow/tfjs-node": "^2.1.0",
+    "parcel-bundler": "1.12.4",
+    "ts-node": "9.0.0",
+    "typescript": "4.0.2",
+    "vue": "2.6.12",
+    "vue-class-component": "^7.2.5",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-property-decorator": "9.0.0",
+    "vuetify": "2.3.10"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
