@@ -10,7 +10,7 @@
 <script lang="ts">
 import WebcamCanvas from './WebcamCanvas.vue';
 import UserVerficationModal from './UserVerficationModal.vue';
-import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop, Ref } from 'vue-property-decorator';
 import vuetify from '../../../plugin/vuetify'
 
 @Component({

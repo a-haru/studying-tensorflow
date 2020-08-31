@@ -22,7 +22,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outlined="true" color="primary" @click.prevent="stop">停止</v-btn>
+                <v-btn outlined color="primary" @click.prevent="stop">停止</v-btn>
                 <v-btn color="primary" @click.prevent="start">開始</v-btn>
             </v-card-actions>
           </v-card>
