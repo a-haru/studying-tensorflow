@@ -37,12 +37,22 @@ export default Vue.extend({
     },
 
     methods: {
-        async show(message: string, correct: boolean = false): Promise<void>
+        async alert(message: string, correct: boolean = false, wait: number = 3000): Promise<void>
+        {
+            this.show(message, correct);
+            await new Promise(r => setTimeout(r, wait));
+            this.hide();
+        },
+
+        show(message: string, correct: boolean = false): void
         {
             this.dialog = true;
             this.message = message;
             this.correct = correct;
-            await new Promise(r => setTimeout(r, 3000));
+        },
+
+        hide(): void
+        {
             this.message = '';
             this.dialog = false;
         }
