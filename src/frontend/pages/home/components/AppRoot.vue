@@ -4,11 +4,11 @@
             <v-container>
                 <v-row>
                     <v-col col="12">
-                        <v-btn @click="toggleRecording(true)">test</v-btn>
+                        <v-btn @click="startRecoding">test</v-btn>
                     </v-col>
                 </v-row>
+                <webcam-canvas ref="webcamCanvas"></webcam-canvas>
             </v-container>
-            <webcam-canvas ref="webcamCanvas"></webcam-canvas>
         </div>
     </v-app>
 </template>
@@ -19,7 +19,9 @@ import WebcamCanvas from './WebcamCanvas.vue';
 import UserVerficationModal from './UserVerficationModal.vue';
 import vuetify from '../../../plugin/vuetify';
 
-interface VMData {}
+interface VMData {
+    isModelLoading: boolean
+}
 
 export default Vue.extend({
 
@@ -27,23 +29,34 @@ export default Vue.extend({
 
     data(): VMData
     {
-        return {}
+        return {
+            isModelLoading: false
+        }
     },
 
     methods: {
-        async toggleRecording(isRecording: boolean = false): Promise<void>
+
+        async startRecoding(): Promise<void>
         {
-            const video = <InstanceType<typeof WebcamCanvas>>this.$refs.webcamCanvas;
-            if (isRecording) {
-                await video.start({
-                    model: './tm-my-image-model/model.json',
-                    metadata: './tm-my-image-model/metadata.json'
-                });
-                await new Promise(resolve => window.setTimeout(resolve, 3000));
-                const predition = await video.complete();
-            } else {
-                await video.pause();
+            if (this.isModelLoading) {
+                // Interrupt the executation.
+                return;
             }
+
+            const video = <InstanceType<typeof WebcamCanvas>>this.$refs.webcamCanvas;
+
+            this.isModelLoading = true;
+
+            await video.start({
+                model: './tm-my-image-model/model.json',
+                metadata: './tm-my-image-model/metadata.json'
+            });
+
+            await new Promise(resolve => window.setTimeout(resolve, 3000));
+            
+            const predition = await video.complete();
+
+            this.isModelLoading = false;
         }
     },
 
