@@ -1,18 +1,18 @@
 import * as tmImage from '@teachablemachine/image';
 
-interface src {
-  model: string,
-  metadata: string
+export type TmImageSrc = {
+  model: string;
+  metadata: string;
 }
 
-export interface imageModel {
-  model?: tmImage.CustomMobileNet,
+export type ImageModel = {
+  model?: tmImage.CustomMobileNet;
   webcam?: tmImage.Webcam;
 }
 
-export async function makeTmImageApp(canvas: HTMLCanvasElement, src: src, width: number = 640, height: number = 360): Promise<imageModel>
+export async function makeTmImageApp(canvas: HTMLCanvasElement, src: TmImageSrc, width: number = 640, height: number = 360): Promise<ImageModel>
 {
-  let props: imageModel = {
+  let props: ImageModel = {
     model: undefined,
     webcam: undefined
   };

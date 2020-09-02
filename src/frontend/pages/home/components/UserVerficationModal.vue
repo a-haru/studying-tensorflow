@@ -33,33 +33,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { makeTmImageApp, imageModel } from '../../shared/comparePictures';
+import Vue from 'vue';
+import { makeTmImageApp, ImageModel } from '../../shared/comparePictures';
 
-@Component
-export default class UserVerificationModal extends Vue {
-    @Prop() imageModel: imageModel;
-
-    dialog: boolean = false;
-
-    modalOpen()
-    {
-        this.dialog = true;
-    }
-
-    modalClose()
-    {
-        this.dialog = false;
-    }
-
-    start()
-    {
-        this.$emit('ev', true);
-    }
-
-    stop()
-    {
-        this.$emit('ev', false);
-    }
+type VMData = {
+    imageModel: ImageModel;
+    dialog: boolean;
 }
+
+export default Vue.extend({
+    data(): VMData
+    {
+        return {
+            imageModel: undefined,
+            dialog: false
+        }
+    },
+    
+    methods: {
+        modalOpen(): void
+        {
+            this.dialog = true;
+        },
+        modalClose(): void
+        {
+            this.dialog = false;
+        },
+        start(): void
+        {
+            this.$emit('ev', true);
+        },
+        stop(): void
+        {
+            this.$emit('ev', false);
+        }
+    }
+});
 </script>
