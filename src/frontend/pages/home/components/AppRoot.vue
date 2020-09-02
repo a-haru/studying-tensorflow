@@ -2,9 +2,9 @@
     <v-app>
         <div id="main">
             <v-container>
-                <v-row>
-                    <v-col col="12">
-                        <v-btn @click="startRecoding">START</v-btn>
+                <v-row justify="center">
+                    <v-col cols="auto" >
+                        <v-btn color="primary" @click="startRecoding">START</v-btn>
                     </v-col>
                 </v-row>
                 <webcam-canvas ref="webcamCanvas"></webcam-canvas>
@@ -66,7 +66,7 @@ export default Vue.extend({
             } else if (idx === 1) {
                 await modal.alert('陽性です');
             } else {
-                await modal.alert('撮り直してください', true);
+                await modal.alert('画面を検出できませんでした。', true);
             }
         }
     },

@@ -2,7 +2,8 @@
     <v-dialog
       v-model="dialog"
       width="500"
-      overlay-opacity="0.1"
+      overlay-color="white"
+      overlay-opacity="0.8"
     >
         <div>
             <v-alert
