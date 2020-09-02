@@ -4,7 +4,7 @@
             <v-container>
                 <v-row>
                     <v-col col="12">
-                        <v-btn @click="startRecoding">test</v-btn>
+                        <v-btn @click="startRecoding">START</v-btn>
                     </v-col>
                 </v-row>
                 <webcam-canvas ref="webcamCanvas"></webcam-canvas>
@@ -21,7 +21,7 @@ import CaptureResult from './CaptureResult.vue';
 import vuetify from '../../../plugin/vuetify';
 
 interface VMData {
-    isModelLoading: boolean
+    executing: boolean
 }
 
 export default Vue.extend({
@@ -31,7 +31,7 @@ export default Vue.extend({
     data(): VMData
     {
         return {
-            isModelLoading: false
+            executing: false
         }
     },
 
@@ -39,14 +39,14 @@ export default Vue.extend({
 
         async startRecoding(): Promise<void>
         {
-            if (this.isModelLoading) {
+            if (this.executing) {
                 // Interrupt the executation.
                 return;
             }
 
             const video = <InstanceType<typeof WebcamCanvas>>this.$refs.webcamCanvas;
 
-            this.isModelLoading = true;
+            this.executing = true;
 
             await video.start({
                 model: './tm-my-image-model/model.json',
@@ -57,17 +57,16 @@ export default Vue.extend({
             
             const predition = await video.complete();
 
-            this.isModelLoading = false;
+            this.executing = false;
 
-            const alert = <InstanceType<typeof CaptureResult>>this.$refs.captureResult;
-            
+            const modal = <InstanceType<typeof CaptureResult>>this.$refs.captureResult;
             const idx = predition.indexOf(Math.max(...predition));
             if (idx === 0) {
-                await alert.show('陰性です', true);
+                await modal.alert('陰性です', true);
             } else if (idx === 1) {
-                await alert.show('陽性です');
+                await modal.alert('陽性です');
             } else {
-                await alert.show('撮り直してください', true);
+                await modal.alert('撮り直してください', true);
             }
         }
     },
