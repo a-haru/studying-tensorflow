@@ -91,7 +91,7 @@ export default Vue.extend({
             }, Array.from(Array(classesCount), () => 0))
             .map((item) => {
                 // 各クラスの予測値の平均
-                return item / total;
+                return total === 0 ? 0 : item / total;
             });
             this.tmpPrediction = [];
             return tmpPrediction;
