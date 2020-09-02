@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-col cols="8">
+        <v-col cols="12" xl="6" lg="8" md="10">
             <div>
                 <canvas ref="canvas"></canvas>
             </div>
