@@ -1,13 +1,11 @@
 <template>
-    <v-container>
-        <v-row justify="center">
-            <v-col cols="8">
-                <div>
-                    <canvas ref="canvas"></canvas>
-                </div>
-            </v-col>
-        </v-row>
-    </v-container>
+    <v-row justify="center">
+        <v-col cols="8">
+            <div>
+                <canvas ref="canvas"></canvas>
+            </div>
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">  
@@ -43,7 +41,7 @@ export default Vue.extend({
                 const canvas = <HTMLCanvasElement>this.$refs.canvas;
                 const width = canvas.parentElement.clientWidth;
                 const height = Math.ceil(width / (16 / 9));
-                this.imageModel = await makeTmImageApp(canvas, tmImageSrc, width, height);
+                this.imageModel = await makeTmImageApp(tmImageSrc, canvas, width, height);
                 await this.imageModel.webcam.setup();
             }
             this.tmpPrediction = [];
@@ -98,11 +96,6 @@ export default Vue.extend({
             this.tmpPrediction = [];
             return tmpPrediction;
         }
-    },
-
-    mounted(): void
-    {
-        console.log(this);
     }
 });
 </script>
