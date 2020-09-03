@@ -55,16 +55,16 @@ export default Vue.extend({
 
             await new Promise(resolve => window.setTimeout(resolve, 3000));
             
-            const predition = await video.complete();
+            const prediction = await video.complete();
 
             this.executing = false;
 
             const modal = <InstanceType<typeof CaptureResult>>this.$refs.captureResult;
-            const idx = predition.indexOf(Math.max(...predition));
+            const idx = prediction.indexOf(Math.max(...prediction));
             if (idx === 0) {
-                await modal.alert('陰性です', true);
+                await modal.alert('問題ありません', true);
             } else if (idx === 1) {
-                await modal.alert('陽性です');
+                await modal.alert('陽性者との接触が確認されました');
             } else {
                 await modal.alert('画面を検出できませんでした。', true);
             }
