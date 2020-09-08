@@ -20,7 +20,7 @@ import WebcamCanvas from './WebcamCanvas.vue';
 import CaptureResult from './CaptureResult.vue';
 import vuetify from '../../../plugin/vuetify';
 
-interface VMData {
+type VMData = {
     executing: boolean
 }
 

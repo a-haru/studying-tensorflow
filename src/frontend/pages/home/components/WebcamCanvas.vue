@@ -10,7 +10,7 @@
 
 <script lang="ts">  
 import Vue, {PropType} from 'vue';
-import { makeTmImageApp, ImageModel, TmImageSrc } from '../../shared/comparePictures';
+import { makeTmImageApp, TmImage, TmImageSrc } from '../../shared/comparePictures';
 
 type PredictItem = {
     className: string;
@@ -18,7 +18,7 @@ type PredictItem = {
 }
 
 type VMData = {
-    imageModel: ImageModel;
+    tm: TmImage;
     animId: number;
     tmpPrediction: PredictItem[];
 }
@@ -28,7 +28,7 @@ export default Vue.extend({
     data(): VMData
     {
         return {
-            imageModel: undefined,
+            tm: undefined,
             animId: -1,
             tmpPrediction: []
         }
@@ -37,47 +37,47 @@ export default Vue.extend({
     methods: {
         async start(tmImageSrc: TmImageSrc): Promise<void>
         {
-            if (!this.imageModel) {
+            if (!this.tm) {
                 const canvas = <HTMLCanvasElement>this.$refs.canvas;
                 const width = canvas.parentElement.clientWidth;
                 const height = Math.ceil(width / (16 / 9));
-                this.imageModel = await makeTmImageApp(tmImageSrc, canvas, width, height);
-                await this.imageModel.webcam.setup();
+                this.tm = await makeTmImageApp(tmImageSrc, canvas, width, height);
+                await this.tm.webcam.setup();
             }
             this.tmpPrediction = [];
-            await this.imageModel.webcam.play();
+            await this.tm.webcam.play();
             await this.loop();
         },
 
         async pause(): Promise<void>
         {
-            if (!this.imageModel) {
+            if (!this.tm) {
                 return;
             }
-            await this.imageModel.webcam.pause();
+            await this.tm.webcam.pause();
             window.cancelAnimationFrame(this.animId);
         },
 
         async predict(): Promise<void>
         {
-            const predict = await this.imageModel.model.predict(this.imageModel.webcam.canvas);
+            const predict = await this.tm.model.predict(this.tm.webcam.canvas);
             this.tmpPrediction.push(predict);
         },
 
         loop(): void
         {
-            if (!this.imageModel) {
+            if (!this.tm) {
                 return;
             }
             this.predict();
-            this.imageModel.webcam.update();
+            this.tm.webcam.update();
             this.animId = window.requestAnimationFrame(this.loop);
         },
 
         async complete(): Promise<number[]>
         {
             await this.pause();
-            const classesCount = this.imageModel.model.getTotalClasses();
+            const classesCount = this.tm.model.getTotalClasses();
             const total = this.tmpPrediction.length;
             const tmpPrediction = this.tmpPrediction.map(item => {
                 // 各クラスの確率値のみ返す
