@@ -5,14 +5,14 @@ export type TmImageSrc = {
     metadata: string;
 }
 
-export type ImageModel = {
+export type TmImage = {
     model?: tmImage.CustomMobileNet;
     webcam?: tmImage.Webcam;
 }
 
-export async function makeTmImageApp(src: TmImageSrc, canvas: HTMLCanvasElement, width: number = 640, height: number = 360): Promise<ImageModel>
+export async function makeTmImageApp(src: TmImageSrc, canvas: HTMLCanvasElement, width: number = 640, height: number = 360): Promise<TmImage>
 {
-    let props: ImageModel = {
+    let props: TmImage = {
         model: undefined,
         webcam: undefined
     };
